@@ -1,0 +1,17 @@
+apiVersion: v2
+name: rube-goal-berg
+type: application
+version: 0.1.0
+appVersion: 0.1.0
+dependencies:
+  - name: frontend-web
+    repository: "file://frontend-web"
+  - name: goal-data-service
+    repository: "file://goal-data-service"
+  - name: goal-event-service
+    repository: "file://goal-event-service"
+  - name: goal-event-processor
+    repository: "file://goal-event-processor"
+  - name: goal-device-service
+    repository: "file://goal-device-service"
+
