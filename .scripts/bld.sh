@@ -3,7 +3,7 @@ PRODUCT_NAME="rgb"
 function deploy {
   echo "🔵 Deploying umbrella chart..."
   kubectl create namespace $PRODUCT_NAME
-  helm upgrade $PRODUCT_NAME ./charts --install --namespace $PRODUCT_NAME
+  helm upgrade $PRODUCT_NAME . --install --namespace $PRODUCT_NAME
 }
 
 function build {
@@ -17,15 +17,17 @@ function build {
   .scripts/update-chart-image.sh $1 $IMAGE
 }
 
-if [[ $1 -eq "all" ]]
-then
+case $1 in
+"deploy-all") ;;
+"all")
   build 'frontend-web'
   build 'goal-data-service'
   build 'goal-device-service'
   build 'goal-event-processor'
   build 'goal-event-service'
-else
-  build $1
-fi
+  ;;
+*)
+  build $1 ;;
+esac
 
 deploy

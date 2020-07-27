@@ -14,4 +14,3 @@ dependencies:
     repository: "file://goal-event-processor"
   - name: goal-device-service
     repository: "file://goal-device-service"
-
