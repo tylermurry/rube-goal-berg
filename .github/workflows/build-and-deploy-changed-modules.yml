@@ -1,0 +1,15 @@
+name: Build and Deploy Changed Modules
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy-changed-modules:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout
+
+      # TODO: Complete the rest of this
