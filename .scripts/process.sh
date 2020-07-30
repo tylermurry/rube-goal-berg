@@ -5,7 +5,8 @@
 
 PRODUCT_NAME="rgb"
 MODULE_NAME="$1"
-PUSH_TO_DOCKERHUB="${2:-false}"
+DOCKERHUB_ACCOUNT="tmurry"
+REPOSITORY="${2:-local-registry}"
 
 function updateChartImage {
   local CHART_VALUES_FILE="./charts/$1/values.yaml"
@@ -14,19 +15,21 @@ function updateChartImage {
 
 function buildDockerImage {
   local MODULE_NAME=$1
-  local IMAGE="$PRODUCT_NAME-$MODULE_NAME:$(uuidgen)"
+  local NAME="$PRODUCT_NAME-$MODULE_NAME:$(uuidgen)"
+
+  case $REPOSITORY in
+    "dockerhub") PREFIX=$DOCKERHUB_ACCOUNT ;;
+    "local-registry") PREFIX="localhost:5000" ;;
+  esac
 
   echo "🔵 Building Dockerfile for module..."
-  docker build -t "$IMAGE" "./$1"
+  docker build -t "$PREFIX/$NAME" "./$MODULE_NAME"
 
-  echo "🔵 Updating $MODULE_NAME chart image to $IMAGE..."
-  updateChartImage "$MODULE_NAME" "$IMAGE"
+  echo "🔵 Updating $MODULE_NAME chart image to $NAME..."
+  updateChartImage "$MODULE_NAME" "$PREFIX/$NAME"
 
-  if "$PUSH_TO_DOCKERHUB"
-  then
-    echo "🔵 Pushing to DockerHub"
-    # TODO: Push to dockerhub
-  fi
+  echo "🔵 Pushing image to $REPOSITORY..."
+  docker push "$PREFIX/$NAME"
 }
 
 function buildFrontendWeb {
@@ -61,7 +64,7 @@ function buildGoalEventService {
   echo "🔵 Building goal-event-service"
   # TODO: Add build steps here
 
-  buildDockerImage "frontend-web"
+  buildDockerImage "goal-event-service"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
