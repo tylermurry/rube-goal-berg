@@ -9,27 +9,35 @@ DOCKERHUB_ACCOUNT="tmurry"
 REPOSITORY="${2:-local-registry}"
 
 function updateChartImage {
-  local CHART_VALUES_FILE="./charts/$1/values.yaml"
-  yq write "$CHART_VALUES_FILE" "image" "$2" > "$CHART_VALUES_FILE"
+  local CHART_VALUE_LOCATION="$1"
+  local IMAGE_NAME="$2"
+  local IMAGE_KEY="$3"
+
+  yq write "$CHART_VALUE_LOCATION" "$IMAGE_KEY" "$IMAGE_NAME" > "new-values.yaml"
+  yq merge "new-values.yaml" "$CHART_VALUE_LOCATION" --overwrite > "$CHART_VALUE_LOCATION"
+  rm -rf "new-values.yaml"
 }
 
 function buildDockerImage {
   local MODULE_NAME=$1
+  local DIRECTORY="${2:-$MODULE_NAME}"
+  local CHART_VALUE_LOCATION="${3:-./charts/$MODULE_NAME/values.yaml}"
+  local IMAGE_KEY="${4:-image}"
   local NAME="$PRODUCT_NAME-$MODULE_NAME:$(uuidgen)"
 
   case $REPOSITORY in
-    "dockerhub") PREFIX=$DOCKERHUB_ACCOUNT ;;
+    "dockerhub") PREFIX="$DOCKERHUB_ACCOUNT" ;;
     "local-registry") PREFIX="localhost:5000" ;;
   esac
 
   echo "🔵 Building Dockerfile for module..."
-  docker build -t "$PREFIX/$NAME" "./$MODULE_NAME"
-
-  echo "🔵 Updating $MODULE_NAME chart image to $NAME..."
-  updateChartImage "$MODULE_NAME" "$PREFIX/$NAME"
+  docker build -t "$PREFIX/$NAME" "./$DIRECTORY"
 
   echo "🔵 Pushing image to $REPOSITORY..."
   docker push "$PREFIX/$NAME"
+
+  echo "🔵 Updating $MODULE_NAME chart image to $NAME..."
+  updateChartImage "$CHART_VALUE_LOCATION" "$PREFIX/$NAME" "$IMAGE_KEY"
 }
 
 function buildFrontendWeb {
@@ -67,6 +75,18 @@ function buildGoalEventService {
   buildDockerImage "goal-event-service"
 }
 
+function buildProductTests {
+  echo "🔵 Building product-functional-tests"
+  # TODO: Add build steps here
+
+  buildDockerImage "product-functional-tests" "product-tests/functional" "./values.yaml" "functionalTestsImage"
+
+  echo "🔵 Building product-non-functional-tests"
+  # TODO: Add build steps here
+
+  buildDockerImage "product-non-functional-tests" "product-tests/non-functional" "./values.yaml" "nonFunctionalTestsImage"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 
 MODULES_TO_PROCESS=$1;
@@ -82,6 +102,7 @@ goal-data-service
 goal-device-service
 goal-event-processor
 goal-event-service
+product-tests
 EOM
 ;;
 esac
@@ -94,6 +115,7 @@ while IFS= read -r module; do
   "goal-device-service") buildGoalDeviceService;;
   "goal-event-processor") buildGoalEventProcessor;;
   "goal-event-service") buildGoalEventService;;
+  "product-tests") buildProductTests;;
   esac
 
 done <<< "$MODULES_TO_PROCESS"

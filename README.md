@@ -31,9 +31,9 @@ The script accepts a single parameter, `module_name` which can have the followin
 * `<module_name>` - Builds and deploys only the module name specified (e.g. `frontend-web`)
 
 ## Verifying the Product Chart Against a Kind Cluster
-Verification locally against a King cluster locally is supported by funning the following: `./.scripts/local/process-and-verify.sh <module>`
+Verification locally against a King cluster locally is supported by running the following: `./.scripts/local/process-and-verify.sh <module>`
 
-The script accepts a single parameter, `<module_name>`, which will have the same possilbe values as the `process-and-deploy` script.
+The script accepts a single parameter, `<module_name>`, which will have the same possible values as the `process-and-deploy` script.
 One unique difference is that this will startup a local docker registry on `localhost:5000` and wire that into the Kind cluster to allow it to pull images successfully.
 
 NOTE: This registry is stopped at the end of execution.

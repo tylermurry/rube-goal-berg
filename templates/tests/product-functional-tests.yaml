@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "rgb-functional-test-suite"
+  annotations:
+    "helm.sh/hook": post-upgrade,post-install
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  containers:
+    - name: 'rgb-functional-test-suite'
+      image: {{ .Values.functionalTestsImage }}
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: URL
+          value: "https://reqres.in/api/user/1"
+  restartPolicy: Never
