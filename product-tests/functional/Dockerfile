@@ -1,2 +1,4 @@
-FROM alpine
-CMD ["/bin/sh", "-c", "echo running functional tests"]
+FROM cypress/included:4.11.0
+COPY . .
+RUN npm install
+ENTRYPOINT npm run ci:$TEST_SCOPE

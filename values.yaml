@@ -1,2 +1,2 @@
-functionalTestsImage: localhost:5000/rgb-product-functional-tests:F7EFEC24-CF92-466F-88FF-260B7844EB4B
-nonFunctionalTestsImage: localhost:5000/rgb-product-non-functional-tests:7DADC8A5-8A39-4919-B689-F199506DE4AA
+functionalTestsImage: localhost:5000/rgb-product-functional-tests:A0483603-5AF6-4529-AC57-FD1BD69779B4
+nonFunctionalTestsImage: localhost:5000/rgb-product-non-functional-tests:AAF33817-9C9B-435F-AF02-CBF4A1317D27

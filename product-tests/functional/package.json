@@ -2,10 +2,14 @@
   "name": "rgb-functional-tests",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ci:all": "cypress run --headless --spec 'cypress/integration/*.spec.js'",
+    "ci:tier1": "cypress run --headless --spec 'cypress/integration/*.tier1.spec.js'",
+    "ci:tier2": "cypress run --headless --spec 'cypress/integration/*.tier2.spec.js'"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^4.11.0"
+  }
 }

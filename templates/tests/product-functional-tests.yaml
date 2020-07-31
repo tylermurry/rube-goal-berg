@@ -11,6 +11,6 @@ spec:
       image: {{ .Values.functionalTestsImage }}
       imagePullPolicy: IfNotPresent
       env:
-        - name: URL
-          value: "https://reqres.in/api/user/1"
+        - name: TEST_SCOPE
+          value: all
   restartPolicy: Never
