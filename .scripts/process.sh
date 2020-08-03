@@ -92,6 +92,7 @@ function buildProductTests {
 MODULES_TO_PROCESS=$1;
 
 case $MODULE_NAME in
+"none") ;;
 "changed")
 MODULES_TO_PROCESS=$(git diff --name-only deployed..HEAD | awk -F'/' 'NF!=1{print $1}' | sort -u) ;;
 "all")
