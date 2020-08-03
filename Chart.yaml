@@ -7,3 +7,6 @@ dependencies:
   - name: ambassador
     version: 6.5.1
     repository: "https://getambassador.io"
+  - name: mongodb
+    version: 8.2.1
+    repository: "https://charts.bitnami.com/bitnami"

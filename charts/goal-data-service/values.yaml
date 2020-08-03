@@ -2,3 +2,6 @@ image: rgb-goal-data-service:5D52B65C-5582-4786-BB7D-504F41AC2C38
 service:
   type: ClusterIP
   port: 4000
+mongodb:
+  host: "rgb-mongodb.rgb.svc.cluster.local"
+  database: "rgb-db"

@@ -18,6 +18,21 @@ spec:
         - image: {{ .Values.image }}
           imagePullPolicy: IfNotPresent
           name: {{ include "goal-event-service.fullname" . }}
+          env:
+            - name: MONGODB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rgb-secrets
+                  key: mongodb-username
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rgb-secrets
+                  key: mongodb-password
+            - name: MONGODB_HOST
+              value: {{ .Values.mongodb.host }}
+            - name: MONGODB_DATABASE
+              value: {{ .Values.mongodb.database }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

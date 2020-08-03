@@ -2,11 +2,12 @@ const { GraphQLServer } = require('graphql-yoga')
 const mongoose = require('mongoose');
 const GoalTypeDefinitions = require('./goal/typeDefinitions');
 const GoalResolvers = require('./goal/resolvers');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const run = async () => {
-    const mongod = new MongoMemoryServer();
-    mongoose.connect(await mongod.getUri());
+    const { MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_HOST, MONGODB_DATABASE } = process.env;
+    const uri = `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}/${MONGODB_DATABASE}`
+
+    mongoose.connect(uri, { useNewUrlParser: true });
 
     const server = new GraphQLServer({ typeDefs: GoalTypeDefinitions, resolvers: GoalResolvers })
     mongoose.connection.once("open", () => {

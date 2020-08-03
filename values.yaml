@@ -1,2 +1,6 @@
 functionalTestsImage: localhost:5000/rgb-product-functional-tests:A0483603-5AF6-4529-AC57-FD1BD69779B4
 nonFunctionalTestsImage: localhost:5000/rgb-product-non-functional-tests:AAF33817-9C9B-435F-AF02-CBF4A1317D27
+
+mongodb:
+  auth:
+    database: 'rgb-db'

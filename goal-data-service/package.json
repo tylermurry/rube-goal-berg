@@ -12,8 +12,5 @@
     "graphql-scalars": "^1.2.6",
     "graphql-yoga": "^1.18.3",
     "mongoose": "^5.9.27"
-  },
-  "devDependencies": {
-    "mongodb-memory-server": "^6.6.3"
   }
 }
