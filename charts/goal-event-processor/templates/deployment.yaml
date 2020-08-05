@@ -18,4 +18,9 @@ spec:
         - image: {{ .Values.image }}
           imagePullPolicy: IfNotPresent
           name: {{ include "goal-event-processor.fullname" . }}
+          env:
+            - name: KAFKA_HOST
+              value: {{ .Values.kafka.host }}
+            - name: GOAL_DATA_SERVICE_HOST
+              value: {{ .Values.goalDataService.host }}
       restartPolicy: Always

@@ -1,2 +1,4 @@
-FROM busybox
-CMD ["/bin/sh", "-c", "echo hello from goal-event-processor! && sleep 1000"]
+FROM node:12
+COPY . .
+RUN npm install
+CMD ["node", "index.js"]

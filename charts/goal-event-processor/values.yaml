@@ -1,1 +1,5 @@
 image: rgb-goal-event-processor:48CA56F2-23CF-4B04-AB09-A197A1CB4A03
+kafka:
+  host: "rgb-kafka.rgb.svc.cluster.local:9092"
+goalDataService:
+  host: "http://rgb-goal-data-service.rgb.svc.cluster.local"
