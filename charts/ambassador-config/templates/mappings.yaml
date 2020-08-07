@@ -15,3 +15,13 @@ spec:
   service: rgb-goal-event-service
   allow_upgrade:
     - websocket
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: rgb-goal-device-service
+spec:
+  prefix: /api/device/
+  service: rgb-goal-device-service
+  allow_upgrade:
+    - websocket

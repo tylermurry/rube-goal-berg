@@ -16,9 +16,7 @@ consumer.on('error', error => {
 const processMessage = message => {
     wss.clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN) {
-            const event = JSON.parse(message.value);
-            event._eventName = 'GoalEvent';
-            client.send(JSON.stringify(event));
+            client.send(message.value);
         }
     });
 };
