@@ -18,4 +18,10 @@ spec:
         - image: {{ .Values.image }}
           imagePullPolicy: IfNotPresent
           name: {{ include "goal-event-service.fullname" . }}
+          env:
+            - name: KAFKA_HOST
+              value: {{ .Values.kafka.host }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
       restartPolicy: Always

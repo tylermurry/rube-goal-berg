@@ -1,1 +1,6 @@
-image: rgb-goal-event-service:0698E580-C93F-4189-A5E5-CEEAADA9EA51
+image: localhost:5000/rgb-goal-event-service:A7041E96-104C-4A95-A416-5787823326FF
+service:
+  type: ClusterIP
+  port: 8080
+kafka:
+  host: "rgb-kafka.rgb.svc.cluster.local:9092"

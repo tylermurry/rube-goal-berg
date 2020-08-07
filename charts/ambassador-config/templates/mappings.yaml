@@ -5,3 +5,13 @@ metadata:
 spec:
   prefix: /api/goal/
   service: rgb-goal-data-service
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: rgb-goal-event-service
+spec:
+  prefix: /api/goal/events/
+  service: rgb-goal-event-service
+  allow_upgrade:
+    - websocket

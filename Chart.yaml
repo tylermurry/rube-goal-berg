@@ -5,7 +5,7 @@ version: 0.1.0
 appVersion: 0.1.0
 dependencies:
   - name: ambassador
-    version: 6.5.1
+    version: 6.5.2
     repository: "https://getambassador.io"
   - name: mongodb
     version: 8.2.1

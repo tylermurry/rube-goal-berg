@@ -1,0 +1,14 @@
+# For local testing only. This disables TLS
+# Reference: https://stackoverflow.com/questions/63291863/ambassador-gives-403-trying-to-connect-to-websocket
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: localhost
+  namespace: rgb
+spec:
+  hostname: localhost
+  acmeProvider:
+    authority: none
+  requestPolicy:
+    insecure:
+      action: Route
