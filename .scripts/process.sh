@@ -48,43 +48,28 @@ function buildFrontendWeb {
 }
 
 function buildGoalDataService {
-  echo "🔵 Building goal-data-service"
-  # TODO: Add build steps here
-
   buildDockerImage "goal-data-service"
 }
 
 function buildGoalDeviceService {
-  echo "🔵 Building goal-device-service"
-  # TODO: Add build steps here
-
   buildDockerImage "goal-device-service"
 }
 
 function buildGoalEventProcessor {
-  echo "🔵 Building goal-event-processor"
-  # TODO: Add build steps here
-
   buildDockerImage "goal-event-processor"
 }
 
 function buildGoalEventService {
-  echo "🔵 Building goal-event-service"
-  # TODO: Add build steps here
-
   buildDockerImage "goal-event-service"
 }
 
 function buildProductTests {
-  echo "🔵 Building product-functional-tests"
-  # TODO: Add build steps here
-
   buildDockerImage "product-functional-tests" "product-tests/functional" "./values.yaml" "functionalTestsImage"
-
-  echo "🔵 Building product-non-functional-tests"
-  # TODO: Add build steps here
-
   buildDockerImage "product-non-functional-tests" "product-tests/non-functional" "./values.yaml" "nonFunctionalTestsImage"
+}
+
+function buildSensorSimulator {
+  buildDockerImage "sensor-simulator"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -117,6 +102,7 @@ while IFS= read -r module; do
   "goal-event-processor") buildGoalEventProcessor;;
   "goal-event-service") buildGoalEventService;;
   "product-tests") buildProductTests;;
+  "sensor-simulator") buildSensorSimulator;;
   esac
 
 done <<< "$MODULES_TO_PROCESS"

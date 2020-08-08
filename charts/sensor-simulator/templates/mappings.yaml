@@ -1,0 +1,10 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: rgb-sensor-simulator
+spec:
+  prefix: /api/simulator/
+  service: rgb-sensor-simulator
+  allow_upgrade:
+    - websocket

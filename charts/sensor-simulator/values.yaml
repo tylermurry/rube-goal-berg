@@ -1,0 +1,6 @@
+service:
+  type: ClusterIP
+  port: 8080
+goalDeviceService:
+  host: "ws://rgb-goal-device-service.rgb.svc.cluster.local/events"
+image: localhost:5000/rgb-sensor-simulator:6C84A119-BA85-4141-9E7D-68ABB7905830
