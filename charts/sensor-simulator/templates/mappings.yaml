@@ -4,7 +4,7 @@ kind: Mapping
 metadata:
   name: rgb-sensor-simulator
 spec:
-  prefix: /api/simulator/
+  prefix: /rgb/api/simulator/
   service: rgb-sensor-simulator
   allow_upgrade:
     - websocket

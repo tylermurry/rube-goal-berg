@@ -1,2 +1,9 @@
-FROM busybox
-CMD ["/bin/sh", "-c", "echo hello from frontend-web! && sleep 1000"]
+FROM node:lts-alpine
+RUN npm install -g http-server
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run generate
+EXPOSE 8080
+CMD [ "http-server", "dist" ]

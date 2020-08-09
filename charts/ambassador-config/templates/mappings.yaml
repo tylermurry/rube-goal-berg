@@ -3,7 +3,7 @@ kind: Mapping
 metadata:
   name: rgb-goal-data-service
 spec:
-  prefix: /api/goal/
+  prefix: /rgb/api/goal/
   service: rgb-goal-data-service
 ---
 apiVersion: getambassador.io/v2
@@ -11,7 +11,7 @@ kind: Mapping
 metadata:
   name: rgb-goal-event-service
 spec:
-  prefix: /api/goal/events/
+  prefix: /rgb/api/goal/events/
   service: rgb-goal-event-service
   allow_upgrade:
     - websocket
@@ -21,7 +21,15 @@ kind: Mapping
 metadata:
   name: rgb-goal-device-service
 spec:
-  prefix: /api/device/
+  prefix: /rgb/api/device/
   service: rgb-goal-device-service
   allow_upgrade:
     - websocket
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: rgb-frontend-web
+spec:
+  prefix: /rgb/
+  service: rgb-frontend-web

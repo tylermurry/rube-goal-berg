@@ -40,38 +40,6 @@ function buildDockerImage {
   updateChartImage "$CHART_VALUE_LOCATION" "$PREFIX/$NAME" "$IMAGE_KEY"
 }
 
-function buildFrontendWeb {
-  echo "🔵 Building frontend-web"
-  # TODO: Add build steps here
-
-  buildDockerImage "frontend-web"
-}
-
-function buildGoalDataService {
-  buildDockerImage "goal-data-service"
-}
-
-function buildGoalDeviceService {
-  buildDockerImage "goal-device-service"
-}
-
-function buildGoalEventProcessor {
-  buildDockerImage "goal-event-processor"
-}
-
-function buildGoalEventService {
-  buildDockerImage "goal-event-service"
-}
-
-function buildProductTests {
-  buildDockerImage "product-functional-tests" "product-tests/functional" "./values.yaml" "functionalTestsImage"
-  buildDockerImage "product-non-functional-tests" "product-tests/non-functional" "./values.yaml" "nonFunctionalTestsImage"
-}
-
-function buildSensorSimulator {
-  buildDockerImage "sensor-simulator"
-}
-
 # ---------------------------------------------------------------------------------------------------------------------
 
 MODULES_TO_PROCESS=$1;
@@ -96,13 +64,16 @@ esac
 while IFS= read -r module; do
 
   case $module in
-  "frontend-web") buildFrontendWeb;;
-  "goal-data-service") buildGoalDataService;;
-  "goal-device-service") buildGoalDeviceService;;
-  "goal-event-processor") buildGoalEventProcessor;;
-  "goal-event-service") buildGoalEventService;;
-  "product-tests") buildProductTests;;
-  "sensor-simulator") buildSensorSimulator;;
+  "frontend-web") buildDockerImage "frontend-web";;
+  "goal-data-service") buildDockerImage "goal-data-service";;
+  "goal-device-service") buildDockerImage "goal-device-service";;
+  "goal-event-processor") buildDockerImage "goal-event-processor";;
+  "goal-event-service") buildDockerImage "goal-event-service";;
+  "product-tests")
+    buildDockerImage "product-functional-tests" "product-tests/functional" "./values.yaml" "functionalTestsImage"
+    buildDockerImage "product-non-functional-tests" "product-tests/non-functional" "./values.yaml" "nonFunctionalTestsImage"
+  ;;
+  "sensor-simulator") buildDockerImage "sensor-simulator";;
   esac
 
 done <<< "$MODULES_TO_PROCESS"
